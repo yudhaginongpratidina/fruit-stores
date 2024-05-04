@@ -1,2 +1,6 @@
 APP_HOST=localhost
 APP_PORT=8000
+
+
+# DATABASE
+NODE_ENV=development
