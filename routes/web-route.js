@@ -9,6 +9,7 @@ const uploadImageBrand = require("../middleware/image-brand");
 
 // IMPORT CONTROLLERS
 const BrandController = require("../controllers/brand-controller");
+const CategoryController = require("../controllers/category-controller");
 
 // =====================================================================================================================
 // DEFINING ROUTES FOR BRAND
@@ -41,7 +42,12 @@ router.get("/brands/delete/:id", BrandController.destroy);
 // GET	/categories/update/:id	Menampilkan halaman form untuk mengubah data categories dari Id
 // POST	/categories/update/:id	Menerima data yang dikirim dari halaman /categories/update/:id untuk melakukan update
 // ----------------------------------------------------------------------------------------------------------------------
-
+router.get("/categories", CategoryController.index);
+router.get("/categories/add", CategoryController.create);
+router.post("/categories/add", CategoryController.store);
+router.get("/categories/delete/:id", CategoryController.destroy);
+router.get("/categories/update/:id", CategoryController.show);
+router.post("/categories/update/:id", CategoryController.update);
 
 
 
