@@ -18,6 +18,9 @@ module.exports = {
       city: {
         type: Sequelize.STRING
       },
+      total_employees: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
