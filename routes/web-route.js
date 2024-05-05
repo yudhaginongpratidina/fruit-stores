@@ -1,7 +1,11 @@
 // LIBRARIES
 const express = require("express");
 const router = express.Router();
+const path = require("path");
 
+
+// MIDDLEWARE UPLOAD IMAGE BRAND
+const uploadImageBrand = require("../middleware/image-brand");
 
 // IMPORT CONTROLLERS
 const BrandController = require("../controllers/brand-controller");
@@ -19,11 +23,40 @@ const BrandController = require("../controllers/brand-controller");
 
 router.get("/brands", BrandController.index);
 router.get("/brands/add", BrandController.create);
-router.post("/brands/add", BrandController.store);
-router.get("/brands/delete/:id", BrandController.destroy);
+router.post("/brands/add", uploadImageBrand.single("image") ,BrandController.store);
 router.get("/brands/update/:id", BrandController.show);
-router.post("/brands/update/:id", BrandController.update);
+router.post("/brands/update/:id", uploadImageBrand.single("image") , BrandController.update);
+router.delete("/brands/delete/:id", BrandController.destroy);
 // =====================================================================================================================
+
+
+
+
+
+
+// =====================================================================================================================
+// UNTUK AKSES GAMBAR DARI FOLDER PUBLIC MELALUI URL
+// ----------------------------------------------------------------------------------------------------------------------
+router.get("/images/:image", (req, res) => {
+    const { image } = req.params
+    res.sendFile(path.join(__dirname, `../public/images/${image}`))
+})
+// =====================================================================================================================
+
+
+
+
+// =====================================================================================================================
+// HALAMAN NOT FOUND
+// ----------------------------------------------------------------------------------------------------------------------
+router.get("/*", (req, res) => {
+    const { url } = req
+    res.render("error", { error: `Halaman ${url} tidak ditemukan` });
+})
+// =====================================================================================================================
+
+
+
 
 // EXPORT
 module.exports = router
