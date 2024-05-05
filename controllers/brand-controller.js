@@ -31,7 +31,7 @@ class BrandController {
 
     static async store(req, res) {
         try {
-            const { name, city } = req.body;
+            const { name, city, total_employees } = req.body;
             const image = req.file;
             const imagePath = image ? image.filename : null;
 
@@ -43,6 +43,7 @@ class BrandController {
             await Brand.create({ 
                 name, 
                 city, 
+                total_employees,
                 image: imagePath
             });
             res.redirect("/brands");
@@ -67,7 +68,7 @@ class BrandController {
         try {
             
             const { id } = req.params;
-            const { name, city } = req.body;
+            const { name, city, total_employees } = req.body;
             const image = req.file;
             const imagePath = image ? image.filename : null;
 
@@ -98,7 +99,7 @@ class BrandController {
                 
                 // UPDAT DATA NAMA, CITY, BESERTA GAMBAR
                 // ============================================
-                await Brand.update({ name, city, image: imagePath }, { where: { id: Number(id) } });
+                await Brand.update({ name, city, total_employees, image: imagePath }, { where: { id: Number(id) } });
 
                 // REDIRECT
                 res.redirect("/brands");
