@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRUIT</title>
+</head>
+<body>
+    <h1>FRUIT</h1>
+
+
+    <!-- LOOPING DATA DENGAN EJS -->
+    <% fruits.forEach(fruit => { %>
+        <div>
+            <img src="/images/<%= fruit.image %>" alt="fruit image" width="200">
+            <h2><%= fruit.name %></h2>
+            <p><%= fruit.price %></p>
+            <p><%= fruit.stock %></p>
+
+            <!-- NAMA CATEGORY BERDASARKAN CATEGROY_ID -->
+            <p> <% const category = categories.find(category => category.id === fruit.category_id); %><%= category.name %></p>
+
+            <!-- NAMA BRAND BERDASARKAN BRAND_ID -->
+            <p> <% const brand = brands.find(brand => brand.id === fruit.brand_id); %><%= brand.name %></p>
+
+
+            <a href="/fruits/update/<%= fruit.id %>">UPDATE</a>
+            
+            <form action="/fruits/delete/<%= fruit.id %>?_method=DELET" method="GET">
+                <button type="submit">DELETE</button>
+            </form>
+
+        </div>
+        <br><br>
+    <% }) %>
+
+    <a href="/fruits/add">CREAT NEW FRUIT</a>
+</body>
+</html>

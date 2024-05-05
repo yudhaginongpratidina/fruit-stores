@@ -6,10 +6,12 @@ const path = require("path");
 
 // MIDDLEWARE UPLOAD IMAGE BRAND
 const uploadImageBrand = require("../middleware/image-brand");
+const uploadImageFruit = require("../middleware/image-fruit");
 
 // IMPORT CONTROLLERS
 const BrandController = require("../controllers/brand-controller");
 const CategoryController = require("../controllers/category-controller");
+const FruitController = require("../controllers/fruit-controller");
 
 // =====================================================================================================================
 // DEFINING ROUTES FOR BRAND
@@ -48,6 +50,27 @@ router.post("/categories/add", CategoryController.store);
 router.get("/categories/delete/:id", CategoryController.destroy);
 router.get("/categories/update/:id", CategoryController.show);
 router.post("/categories/update/:id", CategoryController.update);
+
+
+
+// =====================================================================================================================
+// DEFINING ROUTES FOR FRUITS
+// ----------------------------------------------------------------------------------------------------------------------
+// GET	/fruits	            Menampilkan semua fruit yang ada dalam database
+// GET	/fruits/add	        Menampilkan halaman form untuk menambahkan data fruit
+// POST	/fruits/add	        Menerima data yang dikirim dari halaman /fruits/add untuk melakukan insertion
+// GET	/fruits/delete/:id	Melakukan delete data fruit berdasarkan id yang dikirimkan
+// GET	/fruits/update/:id	Menampilkan halaman form untuk mengubah data fruit dari Id
+// POST	/fruits/update/:id	Menerima data yang dikirim dari halaman /fruits/update/:id untuk melakukan update
+// ----------------------------------------------------------------------------------------------------------------------
+router.get("/fruits", FruitController.index);
+router.get("/fruits/add", FruitController.create);
+router.post("/fruits/add", uploadImageFruit.single("image"), FruitController.store);
+router.get("/fruits/delete/:id", FruitController.destroy);
+router.get("/fruits/update/:id", FruitController.show);
+router.post("/fruits/update/:id", uploadImageFruit.single("image"), FruitController.update);
+
+
 
 
 
