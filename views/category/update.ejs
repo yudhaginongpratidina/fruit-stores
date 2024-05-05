@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPDATE CATEGORY</title>
+</head>
+<body>
+    <h1>UPDATE CATEGORY</h1>
+
+    <form action="/categories/update/<%= category.id %>" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Name Category" value="<%= category.name %>">
+        </div>
+        <div>
+            <button type="submit">UPDATE CATEGORY</button>
+            <a href="/categories">CANCEL</a>
+        </div>
+    </form>
+</body>
+</html>

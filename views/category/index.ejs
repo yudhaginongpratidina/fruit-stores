@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATEGORY</title>
+</head>
+<body>
+    <h1>CATEGORY</h1>
+
+
+    <!-- LOOPING DATA DENGAN EJS -->
+    <% for (const category of categories) { %>
+        <h3><%= category.name %></h3>
+        <a href="/categories/update/<%= category.id %>">Update</a>
+        <form action="/categories/delete/<%= category.id %>?_method=DELETE" method="GET">
+            <button type="submit">Delete</button>
+        </form>
+
+        <br><br>
+    <% } %>
+
+    <a href="/categories/add">Create New Category</a>
+</body>
+</html>

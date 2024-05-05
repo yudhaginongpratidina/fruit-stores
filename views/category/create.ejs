@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREATE CATEGORY</title>
+</head>
+<body>
+    <h1>CREATE NEW CATEGORY</h1>
+
+
+    <form action="/categories/add" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Name Category">
+        </div>
+        <div>
+            <button type="submit">CREATE NEW CATEGORY</button>
+            <a href="/categories">CANCEL</a>
+        </div>
+    </form>
+</body>
+</html>
