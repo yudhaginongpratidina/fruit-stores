@@ -1,39 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FRUIT</title>
-</head>
-<body>
-    <h1>FRUIT</h1>
+<%- include('../partials/header.ejs') %>
+<h1 class="text-center text-2xl font-medium uppercase mb-5">FRUIT</h1>
 
 
-    <!-- LOOPING DATA DENGAN EJS -->
+<div class="w-full px-5 mb-5">
+    <a href="/fruits/add" class="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">CREATE NEW FRUIT</a>
+</div>
+
+
+<!-- LOOPING DATA DENGAN EJS -->
+<div class="w-full flex flex-wrap gap-2 p-5">
     <% fruits.forEach(fruit => { %>
-        <div>
-            <img src="/images/<%= fruit.image %>" alt="fruit image" width="200">
-            <h2><%= fruit.name %></h2>
-            <p><%= fruit.price %></p>
-            <p><%= fruit.stock %></p>
+        <div class="w-full max-w-[300px] border">
 
-            <!-- NAMA CATEGORY BERDASARKAN CATEGROY_ID -->
-            <p> <% const category = categories.find(category => category.id === fruit.category_id); %><%= category.name %></p>
+            <% if (fruit.image) { %> 
+                <img src="/images/<%= fruit.image %>" alt="fruit image" class="w-full h-[200px] object-cover">
+            <% } else { %>
+                <div class="w-full h-[200px] bg-blue-500 flex justify-center items-center">
+                    <h1 class="text-center text-white">No Image</h1>
+                </div>
+            <% } %>
 
-            <!-- NAMA BRAND BERDASARKAN BRAND_ID -->
-            <p> <% const brand = brands.find(brand => brand.id === fruit.brand_id); %><%= brand.name %></p>
+            <div class="text-center flex flex-col gap-0.5 py-2">
+                <h2 class="text-lg"><%= fruit.name %></h2>
+                <div class="flex justify-center items-center">
+                    <p class="font-medium">
+                        <span class="py-0.5 px-2 bg-red-500 text-white rounded-md">$<%= fruit.price %></span> 
+                        <span class="text-sm py-0.5 px-2 bg-indigo-500 text-white rounded-md"><%= fruit.stock %></span>
+                    </p>
+                </div>
+            </div>
 
-
-            <a href="/fruits/update/<%= fruit.id %>">UPDATE</a>
-            
-            <form action="/fruits/delete/<%= fruit.id %>?_method=DELET" method="GET">
-                <button type="submit">DELETE</button>
-            </form>
-
+            <div class="w-full bg-gray-200 shadow-md p-4">
+                <p class="flex justify-between"> 
+                    <span>Category</span> 
+                    <% const category = categories.find(category => category.id === fruit.category_id); %><%= category.name %>
+                </p>
+                <p class="flex justify-between">
+                    <span>Brand</span>
+                    <% const brand = brands.find(brand => brand.id === fruit.brand_id); %><%= brand.name %>
+                </p>
+            </div>
+    
+            <div class="w-full grid grid-cols-2 p-4 gap-2 text-white">
+                <a href="/fruits/update/<%= fruit.id %>" class="w-full py-2 bg-green-600 hover:bg-green-700 flex justify-center items-center">UPDATE</a>
+                <form action="/fruits/delete/<%= fruit.id %>?_method=DELET" method="GET">
+                    <button type="submit" class="w-full py-2 bg-red-600 hover:bg-red-700 flex justify-center items-center">DELETE</button>
+                </form>
+            </div>
         </div>
         <br><br>
     <% }) %>
+</div>
 
-    <a href="/fruits/add">CREAT NEW FRUIT</a>
-</body>
-</html>
+<%- include('../partials/footer.ejs') %>

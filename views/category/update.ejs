@@ -1,22 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPDATE CATEGORY</title>
-</head>
-<body>
-    <h1>UPDATE CATEGORY</h1>
+<style>
+    .container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .form-title {
+        text-align: center;
+        text-transform: uppercase;
+    }
 
-    <form action="/categories/update/<%= category.id %>" method="POST">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Name Category" value="<%= category.name %>">
-        </div>
-        <div>
-            <button type="submit">UPDATE CATEGORY</button>
-            <a href="/categories">CANCEL</a>
-        </div>
-    </form>
-</body>
-</html>
+    .card {
+        width: 500px;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border: 1px solid #ccc;
+    }
+
+    .mb-5 {
+        margin-bottom: 15px;
+    }
+
+    .flex-col {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .flex {
+        display: flex;
+        gap: 5px;
+    }
+
+    .input {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .button {
+        width: 100%;
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-update {
+        background-color: #007bff;
+    }
+
+    .btn-cancel {
+        background-color: #dc3545;
+    }
+</style>
+
+<div class="container">
+    <h1 class="form-title">UPDATE CATEGORY</h1>
+
+    <div class="card">
+        <form action="/categories/update/<%= category.id %>" method="POST" class="flex-col">
+            <div class="flex-col">
+                <label for="name">Name</label>
+                <input class="input" type="text" id="name" name="name" placeholder="Name Category" value="<%= category.name %>">
+            </div>
+            <div class="flex">
+                <button type="submit" class="button btn-update">UPDATE CATEGORY</button>
+                <a class="button btn-cancel" href="/categories">CANCEL</a>
+            </div>
+        </form>
+    </div>
+</div>

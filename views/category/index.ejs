@@ -1,25 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CATEGORY</title>
-</head>
-<body>
-    <h1>CATEGORY</h1>
+<%- include('../partials/header.ejs') %>
 
+
+
+
+    <h1 class="text-center text-2xl font-medium uppercase mb-5">CATEGORY</h1>
+
+    <div class="w-full p-5">
+        <a href="/categories/add" class="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">Create New Category</a>
+    </div>
 
     <!-- LOOPING DATA DENGAN EJS -->
-    <% for (const category of categories) { %>
-        <h3><%= category.name %></h3>
-        <a href="/categories/update/<%= category.id %>">Update</a>
-        <form action="/categories/delete/<%= category.id %>?_method=DELETE" method="GET">
-            <button type="submit">Delete</button>
-        </form>
+    <div class="w-full grid grid-cols-3 gap-5 p-5">
+        <% for (const category of categories) { %>
+            <div class="w-full p-2.5 border-2 flex flex-col gap-4">
+                <div
+                    class="w-full p-0.5 border bg-white shadow-md drop-shadow-md h-[150px] flex justify-center items-center">
+                    <h3 class="text-2xl text-center">
+                        <%= category.name %>
+                    </h3>
+                </div>
+                <div class="w-full grid grid-cols-2 text-white shadow-md drop-shadow-md">
+                    <a href="/categories/update/<%= category.id %>" class="w-full py-2 bg-green-600 hover:bg-green-700 px-4">Update</a>
+                    <form action="/categories/delete/<%= category.id %>?_method=DELETE" method="GET">
+                        <button type="submit" class="w-full py-2 bg-red-600 hover:bg-red-700 px-4">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% } %>
+    </div>
 
-        <br><br>
-    <% } %>
-
-    <a href="/categories/add">Create New Category</a>
-</body>
-</html>
+<%- include('../partials/footer.ejs') %>

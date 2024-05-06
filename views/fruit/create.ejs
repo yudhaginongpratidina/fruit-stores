@@ -1,54 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CREATE FRUIT</title>
-</head>
-<body>
-    <h1>CREATE FRUIT</h1>
+<style>
+    .container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .title {
+        font-size: 3rem;
+        text-align: center;
+    }
 
 
-    <form action="/fruits/add" method="POST" enctype="multipart/form-data">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name">
-        </div>
-        <div>
-            <label for="image">Image</label>
-            <input type="file" id="image" name="image">
-        </div>
-        <div>
-            <label for="price">Price</label>
-            <input type="number" id="price" name="price">
-        </div>
-        <div>
-            <label for="stock">Stock</label>
-            <input type="number" id="stock" name="stock">
-        </div>
-        <div>
-            <label for="category_id">Category</label>
-            <select name="category_id" id="category_id">
-                <option value="">Select Category</option>
-                <% categories.forEach(category => { %>
-                    <option value="<%= category.id %>"><%= category.name %></option>
-                <% }) %>
-            </select>
-        </div>
-        <div>
-            <label for="brand_id">Brand</label>
-            <select name="brand_id" id="brand_id">
-                <option value="">Select Brand</option>
-                <% brands.forEach(brand => { %>
-                    <option value="<%= brand.id %>"><%= brand.name %></option>
-                <% }) %>
-            </select>
-        </div>
-        <div>
-            <button type="submit">ADD NEW FRUIT</button>
-            <a href="/fruits">CANCEL</a>
-        </div>
-    </form>
+    .card {
+        width: 400px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
-</body>
-</html>
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .flex {
+        display: flex;
+        gap:10px;
+    }
+
+    .flex-col {
+        flex-direction: column;
+    }
+
+    input, select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+    button, .btn {
+        padding: 10px;
+        border: 1px solid #ccc;
+        outline-style: none;
+        text-decoration: none;
+    }
+
+    .btn-add {
+        background-color: rgb(5, 109, 5);
+        color: white;
+    }
+
+    .btn-add:hover {
+        background-color: rgb(6, 163, 6);
+        color: white;
+    }
+
+    .btn-cancel {
+        background-color: red;
+        color: white;
+    }
+
+
+    .btn-cancel:hover {
+        background-color: rgb(163, 6, 6);
+        color: white;
+    }
+
+
+</style>
+
+<div class="container">
+    <h1 class="title">CREATE FRUIT</h1>
+
+    <div class="card">
+        <form action="/fruits/add" method="POST" enctype="multipart/form-data">
+            <div class="flex flex-col">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="flex flex-col">
+                <label for="image">Image</label>
+                <input type="file" id="image" name="image">
+            </div>
+            <div class="flex flex-col">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price">
+            </div>
+            <div class="flex flex-col">
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock">
+            </div>
+            <div class="flex flex-col">
+                <label for="category_id">Category</label>
+                <select name="category_id" id="category_id">
+                    <option value="">Select Category</option>
+                    <% categories.forEach(category => { %>
+                        <option value="<%= category.id %>"><%= category.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="flex flex-col">
+                <label for="brand_id">Brand</label>
+                <select name="brand_id" id="brand_id">
+                    <option value="">Select Brand</option>
+                    <% brands.forEach(brand => { %>
+                        <option value="<%= brand.id %>"><%= brand.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="flex">
+                <button type="submit" class="btn-add">ADD NEW FRUIT</button>
+                <a href="/fruits" class="btn btn-cancel">CANCEL</a>
+            </div>
+        </form>
+    </div>
+</div>
