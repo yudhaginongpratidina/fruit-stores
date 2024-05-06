@@ -4,7 +4,30 @@ const fs = require("fs");
 
 class FruitController {
 
-    // MENAMPILKAN SEMUA DATA FRUIT
+    // MENAMPILKAN SEMUA DATA FRUIT DI HALAMAN HOME
+    // ==============================================================================
+    static async home (req, res) {
+        try {
+
+            // QUERY DATA CATEGORY, BRAND, FRUIT
+            // =================================================
+            const categories = await Category.findAll();
+            const brands = await Brand.findAll();
+
+            // QUERY DATA FRUIT LIMIT 4 DESC
+            const fruits = await Fruit.findAll({
+                limit: 4,
+                order: [["updatedAt", "DESC"]]
+            })
+
+
+            res.render('index', { categories, brands, fruits });
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // MENAMPILKAN SEMUA DATA FRUIT DI HALAMAN FRUITS
     // ==============================================================================
     static async index (req, res) {
         try {

@@ -1,0 +1,20 @@
+<nav class="w-full py-2.5 px-6 flex justify-around bg-green-600 text-white">
+    <h1 class="text-xl font-medium">FRUIT STORE</h1>
+    <div class="flex items-center gap-5" id="nav-link">
+    </div>
+</nav>
+
+<script>
+    const links = [
+        { id: 1, href: '/', name: 'home'},
+        { id: 2, href: '/fruits', name: 'fruit'},
+        { id: 3, href: '/brands', name: 'brand'},
+        { id: 4, href: '/categories', name: 'category'},
+    ]
+
+    const navLink = document.querySelector('#nav-link');
+
+    links.forEach(link => {
+        navLink.innerHTML += `<a href="${link.href}" class="text-lg font-medium capitalize hover:underline hover:underline-offset-4">${link.name}</a>`;
+    });
+</script>

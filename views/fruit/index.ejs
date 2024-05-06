@@ -1,55 +1,93 @@
 <%- include('../partials/header.ejs') %>
-<h1 class="text-center text-2xl font-medium uppercase mb-5">FRUIT</h1>
+
+<div class="w-full container py-5 px-2">
+    <h1 class="text-center text-3xl font-semibold mb-0.5">ALL FRUIT</h1>
+    <h2 class="text-center text-md mb-4">Lorem ipsum dolor sit amet consectetur adipisicing</h2>
 
 
-<div class="w-full px-5 mb-5">
-    <a href="/fruits/add" class="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">CREATE NEW FRUIT</a>
-</div>
-
-
-<!-- LOOPING DATA DENGAN EJS -->
-<div class="w-full flex flex-wrap gap-2 p-5">
-    <% fruits.forEach(fruit => { %>
-        <div class="w-full max-w-[300px] border">
-
-            <% if (fruit.image) { %> 
-                <img src="/images/<%= fruit.image %>" alt="fruit image" class="w-full h-[200px] object-cover">
-            <% } else { %>
-                <div class="w-full h-[200px] bg-blue-500 flex justify-center items-center">
-                    <h1 class="text-center text-white">No Image</h1>
-                </div>
-            <% } %>
-
-            <div class="text-center flex flex-col gap-0.5 py-2">
-                <h2 class="text-lg"><%= fruit.name %></h2>
-                <div class="flex justify-center items-center">
-                    <p class="font-medium">
-                        <span class="py-0.5 px-2 bg-red-500 text-white rounded-md">$<%= fruit.price %></span> 
-                        <span class="text-sm py-0.5 px-2 bg-indigo-500 text-white rounded-md"><%= fruit.stock %></span>
-                    </p>
-                </div>
-            </div>
-
-            <div class="w-full bg-gray-200 shadow-md p-4">
-                <p class="flex justify-between"> 
-                    <span>Category</span> 
-                    <% const category = categories.find(category => category.id === fruit.category_id); %><%= category.name %>
-                </p>
-                <p class="flex justify-between">
-                    <span>Brand</span>
-                    <% const brand = brands.find(brand => brand.id === fruit.brand_id); %><%= brand.name %>
-                </p>
-            </div>
-    
-            <div class="w-full grid grid-cols-2 p-4 gap-2 text-white">
-                <a href="/fruits/update/<%= fruit.id %>" class="w-full py-2 bg-green-600 hover:bg-green-700 flex justify-center items-center">UPDATE</a>
-                <form action="/fruits/delete/<%= fruit.id %>?_method=DELET" method="GET">
-                    <button type="submit" class="w-full py-2 bg-red-600 hover:bg-red-700 flex justify-center items-center">DELETE</button>
-                </form>
-            </div>
+    <div class="w-full py-2 mb-5 flex justify-between items-center">
+        <div class="flex gap-0.5 w-full max-w-screen-md">
+            <input type="text" id="search_input" class="w-full py-2 px-2 border outline-none border-green-500 focus:border-2 focus:border-green-700" placeholder="Search by name">
+            <button id="btn-search" class="py-2 px-4 bg-green-500 hover:bg-green-700 border border-green-500 text-white">SEARCH</button>
         </div>
-        <br><br>
-    <% }) %>
+        <div>
+            <a href="/fruits/add" class="py-2.5 px-4 bg-blue-500 hover:bg-blue-700 text-white">NEW FRUIT</a>
+        </div>
+    </div>
+
+    <div class="w-full grid grid-cols-4 gap-5">
+        <% fruits.forEach(fruit => { %>
+            <div class="w-full border shadow-md drop-shadow-lg hover:scale-105 duration-300">
+
+                <% if (fruit.image) { %>
+                    <img src="/images/<%= fruit.image %>" alt="fruit image" class="w-full h-[250px] object-cover">
+                <% } else { %>
+                    <img src="/assets/images/jumbotron.jpg" alt="Fruit" class="w-full h-[250px] object-cover">
+                <% } %>
+
+                <div class="p-2.5">
+                    <div class="flex justify-between mb-2">
+                        <div>
+                            <h1 class="text-xl font-semibold mb-0.5"><%= fruit.name %></h1>
+                            <h2 class="text-lg font-medium text-red-500">IDR <%= fruit.price %>,00<span class="text-sm text-black">/kg</span></h2>
+                        </div>
+                        <div>
+                            <h2 class="text-sm text-white bg-green-500 p-0.5 px-2">Stock : <%= fruit.stock %></h2>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between gap-0.5">
+                        <div class="flex flex-col gap-0.5">
+                            <span class="text-sm text-white bg-green-500 p-0.5 px-2">
+                                Brand : 
+                                <% const brand = brands.find(brand => brand.id === fruit.brand_id); %><%= brand.name %>
+                            </span>
+                            <span class="text-sm text-white bg-blue-500 p-0.5 px-2">
+                                Category: 
+                                <% const category = categories.find(category => category.id === fruit.category_id); %><%= category.name %>
+                            </span>
+                        </div>
+                        <div class="flex gap-0.5">
+                            <a href="/fruits/update/<%= fruit.id %>" class="w-full py-3.5 px-4 text-white bg-orange-500 hover:bg-orange-600 flex justify-center items-center">Update</a>
+                            <form action="/fruits/delete/<%= fruit.id %>?_method=DELET" method="GET">
+                                <button type="submit" class="w-full py-3.5 px-4 text-white bg-red-500 hover:bg-red-600 flex justify-center items-center">DELETE</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
 </div>
+
+<script>
+    // Ambil elemen input dan tombol search
+    const searchInput = document.getElementById('search_input');
+    const searchButton = document.getElementById('btn-search');
+
+    // Event listener untuk tombol search
+    searchButton.addEventListener('click', function() {
+        // Ambil nilai input pencarian
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        // Ambil semua elemen buah
+        const fruits = document.querySelectorAll('.grid > div');
+
+        // Loop melalui setiap elemen buah
+        fruits.forEach(fruit => {
+            // Ambil nama buah dari elemen buah
+            const fruitName = fruit.querySelector('.font-semibold').innerText.toLowerCase();
+
+            // Periksa apakah nama buah cocok dengan yang dicari
+            if (fruitName.includes(searchTerm)) {
+                // Jika cocok, tampilkan buah
+                fruit.style.display = 'block';
+            } else {
+                // Jika tidak cocok, sembunyikan buah
+                fruit.style.display = 'none';
+            }
+        });
+    });
+</script>
+
 
 <%- include('../partials/footer.ejs') %>
