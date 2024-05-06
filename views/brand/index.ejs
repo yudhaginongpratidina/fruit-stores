@@ -1,28 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brand</title>
-</head>
-<body>
-    
-    <h1>Brand</h1>
+<%- include('../partials/header.ejs')  %>
 
 
-    <!-- LOOPING DATA DENGAN EJS -->
+<h1 class="text-center text-3xl font-semibold mb-0.5">BRAND</h1>
+<h2 class="text-center text-md mb-4">Lorem ipsum dolor sit amet consectetur adipisicing</h2>
+
+<div class="w-full px-5 mb-5">
+    <a href="/brands/add" class="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white">NEW BRAND</a>
+</div>
+
+
+<div class="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 px-5">
     <% for (const brand of brands) { %>
-        <img src="/images/<%= brand.image %>" alt="<%= brand.name %>" width="200">
-        <h3><%= brand.name %> | <%= brand.city %></h3>
-        <a href="/brands/update/<%= brand.id %>">Update</a>
-        <form action="/brands/delete/<%= brand.id %>?_method=DELETE" method="GET">
-            <button type="submit">Delete</button>
-        </form>
-        <hr>
+
+        <div class="w-full border shadow-md drop-shadow-lg">
+            <!-- IMAGE -->
+            <% if (brand.image) { %>
+                <img 
+                    src="/images/<%= brand.image %>" 
+                    alt="<%= brand.name %>" 
+                    class="w-full h-[150px] object-cover"
+                >
+            <% } else { %>
+                <div class="w-full h-[150px] bg-blue-500 flex justify-center items-center">
+                    <h1 class="text-center text-white">No Image</h1>
+                </div>
+            <% } %>
+
+            
+            <!-- NAME AND CITY -->
+            <div class="p-2.5 flex flex-col gap-2 justify-center">
+                <h1 class="text-xl text-center font-semibold mb-2"><%= brand.name %></h1>
+                <div class="flex justify-center">
+                    <h2 class="text-sm py-0.5 px-2 text-white bg-green-500 w-fit" ><%= brand.city %></h2>
+                    <h2 class="text-sm py-0.5 px-2 text-white bg-rose-500"><%= brand.total_employees %> Employees</h2>
+                </div>
+            </div>
+
+            <!-- BOTTON -->
+            <div class="grid grid-cols-2 p-2.5 gap-2 text-white text-center">
+                <a href="/brands/update/<%= brand.id %>" class="w-full py-2 bg-green-600 hover:bg-green-700 px-4">Update</a>
+                
+                <form action="/brands/delete/<%= brand.id %>?_method=DELETE" method="GET">
+                    <button type="submit" class="w-full py-2 bg-red-600 hover:bg-red-700 px-4">Delete</button>
+                </form>
+            </div>
+        </div>
     <% } %>
-
-    <a href="/brands/add">Create</a>
-    
-
-</body>
-</html>
+</div>
+<!-- LOOPING DATA DENGAN EJS -->
+<%- include('../partials/footer.ejs')  %>

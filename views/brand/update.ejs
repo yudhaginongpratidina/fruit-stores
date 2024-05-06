@@ -1,35 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<style>
+    .container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 3rem;
+    }
+
+    .card {
+        width: 500px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .card form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    .flex {
+        display: flex;
+        gap: 5px;
+    }
+
+    .flex-col {
+        flex-direction: column;
+    }
+
+    input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        outline-style: none;
+    }
+
+    button, .btn {
+        padding: 10px;
+        border: 1px solid #ccc;
+        outline-style: none;
+        text-decoration: none;
+    }
+
+    .btn-add {
+        background-color: rgb(5, 109, 5);
+        color: white;
+    }
+
+    .btn-add:hover {
+        background-color: rgb(6, 163, 6);
+        color: white;
+    }
+
+    .btn-cancel {
+        background-color: red;
+        color: white;
+    }
+
+
+    .btn-cancel:hover {
+        background-color: rgb(163, 6, 6);
+        color: white;
+    }
+</style>
+
+
+<div class="container">
     <h1>EDIT BRAND</h1>
 
+    <div class="card">
+        <form action="/brands/update/<%= brand.id %>" method="POST" enctype="multipart/form-data">
+            <div class="flex flex-col">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="<%= brand.name %>">
+            </div>
+            <div class="flex flex-col">
+                <label for="image">Image</label>
+                <input type="file" id="image" name="image" value="<%= brand.image %>">
+            </div>
+            <div class="flex flex-col">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" value="<%= brand.city %>">
+            </div>
+            <div class="flex flex-col">
+                <label for="total_employees">Total Employee</label>
+                <input type="number" id="total_employees" name="total_employees" value="<%= brand.total_employees %>">
+            </div>
+            <div class="flex">
+                <button type="submit" class="btn-add">EDIT BRAND</button>
+                <a href="/brands" class="btn btn-cancel">KEMBALI</a>
+            </div>
+        </form>
+    </div>
+    
 
-    <form action="/brands/update/<%= brand.id %>" method="POST" enctype="multipart/form-data">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<%= brand.name %>">
-        </div>
-        <div>
-            <label for="image">Image</label>
-            <input type="file" id="image" name="image" value="<%= brand.image %>">
-        </div>
-        <div>
-            <label for="city">City</label>
-            <input type="text" id="city" name="city" value="<%= brand.city %>">
-        </div>
-        <div>
-            <label for="total_employees">Total Employee</label>
-            <input type="number" id="total_employees" name="total_employees" value="<%= brand.total_employees %>">
-        </div>
-        <div>
-            <button type="submit">EDIT BRAND</button>
-            <a href="/brands">KEMBALI</a>
-        </div>
-    </form>
-</body>
-</html>
+</div>

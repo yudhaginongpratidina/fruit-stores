@@ -1,0 +1,62 @@
+<%- include('./partials/header.ejs') %>
+
+
+    <div class="w-full h-[600px] bg-cover bg-no-repeat bg-black bg-blend-multiply bg-opacity-70" style="background-image: url('/assets/images/jumbotron.jpg');">
+        <div class="w-full h-full container flex justify-center items-center">
+            <h1 class="lg:text-7xl xl:text-8xl text-white font-bold text-center">
+                The right way to eat <br>
+                fruit and vegetable for <br>
+                healthy life 😊
+            </h1>
+        </div>
+    </div>
+
+
+    <div class="w-full container py-5 px-2">
+        <h1 class="text-center text-3xl font-semibold mb-0.5">FRUIT</h1>
+        <h2 class="text-center text-md mb-4">Lorem ipsum dolor sit amet consectetur adipisicing</h2>
+        <div class="w-full grid grid-cols-4 gap-5">
+            <% fruits.forEach(fruit => { %>
+                <div class="w-full border shadow-md drop-shadow-lg hover:scale-105 duration-300">
+
+                    <% if (fruit.image) { %>
+                        <img src="/images/<%= fruit.image %>" alt="fruit image" class="w-full h-[250px] object-cover">
+                    <% } else { %>
+                        <img src="/assets/images/jumbotron.jpg" alt="Fruit" class="w-full h-[250px] object-cover">
+                    <% } %>
+
+                    <div class="p-2.5">
+                        <div class="flex justify-between mb-2">
+                            <div>
+                                <h1 class="text-xl font-semibold mb-0.5"><%= fruit.name %></h1>
+                                <h2 class="text-lg font-medium text-red-500">IDR <%= fruit.price %>,00<span class="text-sm text-black">/kg</span></h2>
+                            </div>
+                            <div>
+                                <h2 class="text-sm text-white bg-green-500 p-0.5 px-2">Stock : <%= fruit.stock %></h2>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between gap-0.5">
+                            <div class="flex flex-col gap-0.5">
+                                <span class="text-sm text-white bg-green-500 p-0.5 px-2">
+                                    Brand : 
+                                    <% const brand = brands.find(brand => brand.id === fruit.brand_id); %><%= brand.name %>
+                                </span>
+                                <span class="text-sm text-white bg-blue-500 p-0.5 px-2">
+                                    Category: 
+                                    <% const category = categories.find(category => category.id === fruit.category_id); %><%= category.name %>
+                                </span>
+                            </div>
+                            <div class="flex gap-0.5">
+                                <a href="/fruits/update/<%= fruit.id %>" class="w-full py-3.5 px-4 text-white bg-orange-500 hover:bg-orange-600 flex justify-center items-center">Update</a>
+                                <form action="/fruits/delete/<%= fruit.id %>?_method=DELET" method="GET">
+                                    <button type="submit" class="w-full py-3.5 px-4 text-white bg-red-500 hover:bg-red-600 flex justify-center items-center">DELETE</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+<%- include('./partials/footer.ejs') %>
